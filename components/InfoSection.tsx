@@ -1,5 +1,7 @@
 import { MapPin, User, Mail, Send } from "lucide-react";
 
+import Image from "next/image";
+
 const InfoSection = () => {
   const infoCards = [
     {
@@ -8,6 +10,7 @@ const InfoSection = () => {
       iconBg: "bg-blue-100",
       title: "ADRESA",
       content: ["Šubićeva 9", "10 000 Zagreb", "OIB: 60192951611"],
+      locationLink: "https://maps.app.goo.gl/SDRVUYmn5Y8UX7LdA",
     },
     {
       id: 2,
@@ -34,46 +37,76 @@ const InfoSection = () => {
 
   return (
     <section id="info" className="section bg-neutral-bg">
-      <div className="container mx-auto px-4">
+      <div className="container px-4 mx-auto">
         <h2 className="section-title">Informacije</h2>
         <div className="accent-line" />
 
         {/* Info Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2 lg:grid-cols-3">
           {infoCards.map((card) => (
-            <div key={card.id} className="card p-8 text-center">
+            <div key={card.id} className="p-8 text-center card">
               <div
                 className={`${card.iconBg} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6`}
               >
                 <div className="text-gray-700">{card.icon}</div>
               </div>
 
-              <h3 className="text-xl font-bold text-neutral-text mb-4">
+              <h3 className="mb-4 text-xl font-bold text-neutral-text">
                 {card.title}
               </h3>
 
               <div className="space-y-2 text-neutral-secondary">
-                {card.content.map((line, index) => (
-                  <p key={index} className="text-base">
-                    {line}
-                  </p>
-                ))}
+                {card.content.map((line, index) => {
+                  const isEmail = line?.includes("@") && line?.includes(".");
+                  return (
+                    <p key={index} className="text-base">
+                      {index === 0 && card.locationLink ? (
+                        <a
+                          href={card.locationLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-accent-blue hover:underline"
+                        >
+                          {line}
+                        </a>
+                      ) : isEmail ? (
+                        <a
+                          href={`mailto:${line}`}
+                          className="text-accent-blue hover:underline"
+                        >
+                          {line}
+                        </a>
+                      ) : (
+                        line
+                      )}
+                    </p>
+                  );
+                })}
               </div>
             </div>
           ))}
 
           {/* Partners Card */}
-          <div className="card p-8 text-center md:col-span-2 lg:col-span-1">
-            <h3 className="text-xl font-bold text-neutral-text mb-6">
+          <div className="p-8 text-center card md:col-span-2 lg:col-span-1">
+            <h3 className="mb-6 text-xl font-bold text-neutral-text">
               PARTNERI
             </h3>
-
-            <div className="flex justify-center items-center gap-4">
-              <div className="w-28 h-28 bg-gray-100 rounded-lg border-2 border-gray-200 flex items-center justify-center">
-                <span className="text-xs text-neutral-secondary">HLZ Logo</span>
+            <div className="flex items-center justify-center gap-4">
+              <div className="relative overflow-hidden bg-gray-100 border-2 border-gray-200 rounded-lg w-28 h-28">
+                <Image
+                  src="/images/logos/hlz.png"
+                  alt="HLZ logo"
+                  fill
+                  className="object-contain p-4"
+                />
               </div>
-              <div className="w-28 h-28 bg-gray-100 rounded-lg border-2 border-gray-200 flex items-center justify-center">
-                <span className="text-xs text-neutral-secondary">Partner</span>
+              <div className="relative overflow-hidden bg-gray-100 border-2 border-gray-200 rounded-lg w-28 h-28">
+                <Image
+                  src="/images/logos/nefro-logo.png"
+                  alt="Nefro logo"
+                  fill
+                  className="object-contain p-4"
+                />
               </div>
             </div>
           </div>
