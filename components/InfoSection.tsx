@@ -14,22 +14,30 @@ const InfoSection = () => {
     },
     {
       id: 2,
-      icon: <User className="w-8 h-8" />,
-      iconBg: "bg-green-100",
+      icon: (
+        <Image
+          src="/images/nikolina-basic-jukic-pfp.jpg"
+          alt="Profile Picture"
+          width={50}
+          height={50}
+          className="object-cover rounded-full"
+        />
+      ),
+      iconBg: "bg-blue-100",
       title: "PREDSJEDNICA",
       content: ["Prof.dr.sc.", "Nikolina Bašić Jukić", "nbasicjukic@nefro.hr"],
     },
     {
       id: 3,
       icon: <Mail className="w-8 h-8" />,
-      iconBg: "bg-orange-100",
+      iconBg: "bg-blue-100",
       title: "KONTAKT",
       content: ["info@nefro.hr", "01/ 2367-139"],
     },
     {
       id: 4,
       icon: <Send className="w-8 h-8" />,
-      iconBg: "bg-purple-100",
+      iconBg: "bg-blue-100",
       title: "TAJNIK",
       content: ["dr.sc. Vesna Furić Čunko", "dr.med.", "tajnik@nefro.hr"],
     },

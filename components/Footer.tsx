@@ -97,20 +97,24 @@ const Footer = () => {
               <h4 className="mb-4 text-lg font-semibold">Naši partneri</h4>
               <div className="flex flex-row items-center gap-4">
                 <div className="relative flex-shrink-0 w-28 h-28 sm:w-46 sm:h-46">
-                  <Image
-                    src="/images/logos/nefro-logo.png"
-                    alt="Nefro Logo"
-                    fill
-                    className="object-contain"
-                  />
+                  <Link href="https://nefro.healthmed.hr/" target="_blank">
+                    <Image
+                      src="/images/logos/nefro-logo.png"
+                      alt="Nefro Logo"
+                      fill
+                      className="object-contain"
+                    />
+                  </Link>
                 </div>
                 <div className="relative flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20">
-                  <Image
-                    src="/images/logos/hlz.png"
-                    alt="HLZ Logo"
-                    fill
-                    className="object-contain"
-                  />
+                  <Link href="https://www.hlz.hr" target="_blank">
+                    <Image
+                      src="/images/logos/hlz.png"
+                      alt="HLZ Logo"
+                      fill
+                      className="object-contain"
+                    />
+                  </Link>
                 </div>
               </div>
             </div>
