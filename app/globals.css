@@ -1,26 +1,74 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: #2c5f8d;
+  --color-primary-dark: #1a3a52;
+  --color-accent-blue: #0d6efd;
+  --color-accent-orange: #ff6b35;
+  --color-neutral-bg: #f8f9fa;
+  --color-neutral-text: #212529;
+  --color-neutral-secondary: #6c757d;
+  --color-neutral-footer: #1a2332;
+
+  --font-family-sans: "Inter", system-ui, sans-serif;
+
+  --shadow-card: 0px 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0px 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply text-neutral-text antialiased;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Button Styles */
+  .btn {
+    @apply px-6 py-3 rounded-lg font-semibold transition-all duration-300 inline-block text-center;
+  }
+
+  .btn-primary {
+    @apply bg-accent-blue text-white hover:bg-blue-700 hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-accent-blue border-2 border-accent-blue hover:bg-accent-blue hover:text-white;
+  }
+
+  .btn-cta {
+    @apply bg-accent-orange text-white hover:bg-orange-600 hover:shadow-lg;
+  }
+
+  /* Card Styles */
+  .card {
+    @apply bg-white rounded-xl shadow-card transition-all duration-300;
+  }
+
+  .card:hover {
+    @apply shadow-card-hover transform -translate-y-1;
+  }
+
+  /* Section Styles */
+  .section {
+    @apply py-16 md:py-20;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4;
+  }
+
+  .accent-line {
+    @apply w-48 h-1 bg-accent-blue mx-auto mb-12;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .text-shadow-sm {
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+  }
 }
