@@ -1,14 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "static.wixstatic.com",
+        hostname: "",
       },
     ],
   },
+  experimental: {
+    turbopackFileSystemCacheForDev: true,
+  },
+  //devIndicators: false,
 };
 
 export default nextConfig;

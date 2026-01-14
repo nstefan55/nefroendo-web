@@ -6,6 +6,7 @@ build
 
 # Environment variables - IMPORTANT: Never commit these!
 .env
+.env.example
 .env.local
 .env.development
 .env.production
