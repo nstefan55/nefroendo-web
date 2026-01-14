@@ -21,7 +21,7 @@ const HeroSection = () => {
         <div className="flex h-full items-start pt-4 md:items-center md:pt-0">
           <div className="max-w-3xl">
             {/* Semi-transparent background */}
-            <div className="p-5 bg-black/15 sm:p-6 md:p-12 rounded-xl backdrop-blur-sm">
+            <div className="p-5 bg-black/15 sm:p-6 md:p-12 rounded-xl backdrop-blur-sm transition duration-300 ease-in-out hover:scale-110">
               <h1 className="mb-3 text-3xl font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl text-shadow">
                 NefroEndo 2026
               </h1>
