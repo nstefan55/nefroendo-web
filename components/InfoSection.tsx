@@ -1,4 +1,4 @@
-import { MapPin, User, Mail, Send } from "lucide-react";
+import { MapPin, Mail, Send } from "lucide-react";
 
 import Image from "next/image";
 
