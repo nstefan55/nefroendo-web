@@ -95,25 +95,26 @@ const InfoSection = () => {
           ))}
 
           {/* Partners Card */}
-          <div className="p-8 text-center card md:col-span-2 lg:col-span-1">
+          <div className="p-8 text-center card md:col-span-2 lg:col-span-2">
             <h3 className="mb-6 text-xl font-bold text-neutral-text">
               PARTNERI
             </h3>
             <div className="flex items-center justify-center gap-4">
-              <div className="relative overflow-hidden bg-gray-100 border-2 border-gray-200 rounded-lg w-28 h-28">
-                <Image
-                  src="/images/logos/hlz.png"
-                  alt="HLZ logo"
-                  fill
-                  className="object-contain p-4"
-                />
-              </div>
-              <div className="relative overflow-hidden bg-gray-100 border-2 border-gray-200 rounded-lg w-28 h-28">
+              <div className="relative w-full overflow-hidden rounded-lg h-28 lg:h-36">
                 <Image
                   src="/images/logos/nefro-logo.png"
                   alt="Nefro logo"
                   fill
                   className="object-contain p-4"
+                />
+              </div>
+
+              <div className="relative w-full overflow-hidden rounded-lg h-28 lg:h-36">
+                <Image
+                  src="/images/logos/hlz.png"
+                  alt="HLZ logo"
+                  className="object-contain p-4"
+                  fill
                 />
               </div>
             </div>
