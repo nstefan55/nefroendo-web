@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins, Ubuntu } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "NefroEndo 2026 | Zagreb, Hotel Internacional",
@@ -32,7 +35,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="hr" className="scroll-smooth">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <Header />
         <main>{children}</main>
         <Footer />
