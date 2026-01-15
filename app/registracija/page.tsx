@@ -227,7 +227,7 @@ const RegistracijaPage = () => {
   return (
     <div className="min-h-screen bg-neutral-bg py-12">
       <div className="container mx-auto px-4">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl lg:max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold text-center mb-4">Registracija</h1>
           <div className="accent-line mb-8" />
 
