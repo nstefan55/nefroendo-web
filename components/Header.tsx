@@ -1,11 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isMountedRef = useRef(false);
+
+  // Close mobile menu on scroll and track scroll state
+  useEffect(() => {
+    isMountedRef.current = true;
+
+    const handleScroll = () => {
+      if (isMenuOpen && window.scrollY > 100) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isMenuOpen]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
 
   const navLinks = [
     { name: "Naslovnica", href: "/" },
@@ -16,7 +43,15 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-primary sticky top-0 z-50 shadow-lg">
+    <header
+      className="bg-primary fixed top-0 left-0 right-0 z-50 shadow-lg"
+      style={{
+        transform: "translate3d(0, 0, 0)",
+        backfaceVisibility: "hidden",
+        WebkitBackfaceVisibility: "hidden",
+      }}
+      suppressHydrationWarning
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}

@@ -43,7 +43,7 @@ export default function RootLayout({
     <html lang="hr" className="scroll-smooth">
       <body className={`${poppins.className} ${inter.variable}`}>
         <Header />
-        <main>{children}</main>
+        <main className="pt-20">{children}</main>
         <Footer />
       </body>
     </html>
