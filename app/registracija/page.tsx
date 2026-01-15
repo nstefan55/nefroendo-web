@@ -225,31 +225,31 @@ const RegistracijaPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-bg py-12">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-neutral-bg py-6 sm:py-12">
+      <div className="container mx-auto px-3 sm:px-4">
         <div className="max-w-2xl lg:max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-center mb-4">Registracija</h1>
-          <div className="accent-line mb-8" />
+          <h1 className="text-2xl sm:text-4xl font-bold text-center mb-4">
+            Registracija
+          </h1>
+          <div className="accent-line mb-6 sm:mb-8" />
 
           <p className="text-center text-neutral-secondary mb-8 text-lg">
             Prijavite se na NefroEndo 2026 konferenciju popunjavanjem obrasca
             ispod.
           </p>
 
-          <div className="bg-white rounded-xl shadow-card p-8">
+          <div className="bg-white rounded-xl shadow-card p-4 sm:p-6 lg:p-8">
             <Image
               src="/images/nefro-hero-image-2.png"
               alt="Nefro Hero Image"
               width={1000}
               height={1000}
-              className="pb-10"
+              className="pb-6 sm:pb-10"
             />
-            <div className="h2 font-bold pb-8 uppercase">Opće Informacije</div>
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-6"
-              suppressHydrationWarning
-            >
+            <div className="text-lg sm:text-xl font-bold pb-6 sm:pb-8 uppercase">
+              Opće Informacije
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* Job Title */}
               <div>
                 <label
@@ -264,6 +264,7 @@ const RegistracijaPage = () => {
                   name="jobTitle"
                   value={formData.jobTitle}
                   onChange={handleChange}
+                  suppressHydrationWarning
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                   placeholder="Dr. med., spec. nefrolog"
                 />
@@ -284,6 +285,7 @@ const RegistracijaPage = () => {
                     value={formData.firstName}
                     onChange={handleChange}
                     required
+                    suppressHydrationWarning
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                     placeholder="Vaše ime"
                   />
@@ -303,6 +305,7 @@ const RegistracijaPage = () => {
                     value={formData.lastName}
                     onChange={handleChange}
                     required
+                    suppressHydrationWarning
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                     placeholder="Vaše prezime"
                   />
@@ -324,6 +327,7 @@ const RegistracijaPage = () => {
                   value={formData.street}
                   onChange={handleChange}
                   required
+                  suppressHydrationWarning
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                   placeholder="Ulica i broj"
                 />
@@ -344,6 +348,7 @@ const RegistracijaPage = () => {
                     value={formData.city}
                     onChange={handleChange}
                     required
+                    suppressHydrationWarning
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                     placeholder="Zagreb"
                   />
@@ -363,6 +368,7 @@ const RegistracijaPage = () => {
                     value={formData.zipCode}
                     onChange={handleChange}
                     required
+                    suppressHydrationWarning
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                     placeholder="10000"
                   />
@@ -384,6 +390,7 @@ const RegistracijaPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  suppressHydrationWarning
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                   placeholder="email.adresa@gmail.com"
                 />
@@ -404,14 +411,15 @@ const RegistracijaPage = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   required
+                  suppressHydrationWarning
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                   placeholder="+385 91 234 5678"
                 />
               </div>
 
-              <hr className="mt-12 mb-10 text-gray-200" />
+              <hr className="mt-8 sm:mt-12 mb-6 sm:mb-10 text-gray-200" />
 
-              <div className="h2 font-bold pb-2 uppercase">
+              <div className="text-lg sm:text-xl font-bold pb-2 uppercase">
                 Ispunite informacije ustanova/organizacija koji snose troškove
               </div>
 
@@ -431,6 +439,7 @@ const RegistracijaPage = () => {
                   value={formData.organization}
                   onChange={handleChange}
                   required
+                  suppressHydrationWarning
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                   placeholder="Naziv tvrtke/organizacije"
                 />
@@ -451,6 +460,7 @@ const RegistracijaPage = () => {
                   value={formData.orgAddress}
                   onChange={handleChange}
                   required
+                  suppressHydrationWarning
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                   placeholder="Ulica, broj, grad, poštanski broj"
                 />
@@ -472,6 +482,7 @@ const RegistracijaPage = () => {
                     value={formData.vatOib}
                     onChange={handleChange}
                     required
+                    suppressHydrationWarning
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                     placeholder="12345678901"
                   />
@@ -491,50 +502,52 @@ const RegistracijaPage = () => {
                     value={formData.country}
                     onChange={handleChange}
                     required
+                    suppressHydrationWarning
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
                     placeholder="Hrvatska"
                   />
                 </div>
               </div>
 
-              <hr className="mt-12 mb-10 text-gray-200" />
+              <hr className="mt-8 sm:mt-12 mb-6 sm:mb-10 text-gray-200" />
 
-              <div className="h2 font-bold pb-2 uppercase">
+              <div className="text-lg sm:text-xl font-bold pb-2 uppercase">
                 Tip Registracije <span className="text-red-500">*</span>
               </div>
 
               {/* Registration Type */}
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {REGISTRATION_OPTIONS.map((option) => (
                   <label
                     key={option.id}
-                    className={`flex items-center justify-between p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                    className={`flex items-start sm:items-center justify-between p-3 sm:p-4 border-2 rounded-lg cursor-pointer transition-all ${
                       formData.registrationTypes.includes(option.id)
                         ? "border-accent-blue bg-blue-50"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-start sm:items-center gap-3 sm:gap-4">
                       <input
                         type="checkbox"
                         name="registrationTypes"
                         value={option.id}
                         checked={formData.registrationTypes.includes(option.id)}
                         onChange={handleChange}
-                        className="w-5 h-5 text-accent-blue border-gray-300 focus:ring-accent-blue rounded"
+                        suppressHydrationWarning
+                        className="w-5 h-5 mt-0.5 sm:mt-0 text-accent-blue border-gray-300 focus:ring-accent-blue rounded flex-shrink-0"
                       />
                       <div>
-                        <span className="font-semibold text-primary">
+                        <span className="font-semibold text-primary text-sm sm:text-base">
                           {option.label}
                         </span>
                         {option.note && (
-                          <p className="text-sm text-neutral-secondary mt-0.5">
+                          <p className="text-xs sm:text-sm text-neutral-secondary mt-0.5">
                             {option.note}
                           </p>
                         )}
                       </div>
                     </div>
-                    <span className="font-semibold text-neutral-text">
+                    <span className="font-semibold text-neutral-text text-sm sm:text-base whitespace-nowrap ml-2">
                       {option.price === 0
                         ? "Free"
                         : `€${option.price.toFixed(2)}`}
@@ -560,12 +573,12 @@ const RegistracijaPage = () => {
                 </span>
               </div>
 
-              <hr className="mt-12 mb-10 text-gray-200" />
+              <hr className="mt-8 sm:mt-12 mb-6 sm:mb-10 text-gray-200" />
 
-              <div className="h2 font-bold pb-2 uppercase">
+              <div className="text-lg sm:text-xl font-bold pb-2 uppercase">
                 Plaćanje kotizacije
               </div>
-              <p>
+              <p className="text-sm sm:text-base">
                 Plaćanje je moguće izvršiti putem internetskog ili mobilnog
                 bankarstva te elektroničkim bankovnim prijenosom.
               </p>
@@ -594,10 +607,11 @@ const RegistracijaPage = () => {
                       name="terms-of-service-agreement"
                       required
                       onChange={handleChange}
+                      suppressHydrationWarning
                       className="w-5 h-5 text-accent-blue border-gray-300 focus:ring-accent-blue rounded"
                     />
                     <div>
-                      <span className="font-semibold text-black text-nowrap">
+                      <span className="font-semibold text-black sm:text-wrap md:text-nowrap">
                         Slažem se s
                         <a
                           href="/files/Opći-uvijeti-poslovanja-Certitudo.pdf"
