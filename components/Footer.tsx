@@ -24,7 +24,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-8 mb-8 md:grid-cols-3 lg:grid-cols-5">
           {/* Column 1: Brand & Address */}
           <div>
-            <h3 className="mb-4 text-2xl font-bold">NefroEndo 2026</h3>
+            <h3 className="mb-4 text-2xl font-bold">NefroEndo</h3>
             <div className="space-y-2 text-sm text-white/80">
               <p>Hrvatsko društvo za bubreg</p>
               <p>Hrvatskog liječničkog zbora</p>

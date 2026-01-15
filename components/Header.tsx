@@ -57,9 +57,7 @@ const Header = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <div className="bg-white px-6 py-2 rounded-lg shadow-md">
-              <span className="text-primary font-bold text-lg">
-                NefroEndo 2026
-              </span>
+              <span className="text-primary font-bold text-lg">NefroEndo</span>
             </div>
           </Link>
 

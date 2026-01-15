@@ -3,78 +3,94 @@
 import { useState, FormEvent } from "react";
 
 import Image from "next/image";
-import { Link } from "lucide-react";
 
 const JOTFORM_CONFIG = {
-  formId: "YOUR_FORM_ID", // Replace with your JotForm Form ID
-  // Field IDs - Find these in JotForm form builder (click field → Advanced → Field ID)
+  formId: "260144035639353", // Your JotForm Form ID
+  // Field IDs for JotForm API - use field number with subfield names
+  // Format for API: {fieldNumber} or {fieldNumber}_{subfield}
   fields: {
-    firstName: "q3_firstName",
-    lastName: "q4_lastName",
-    street: "q9_street",
-    city: "q10_city",
-    zipCode: "q11_zipCode",
-    email: "q5_email",
-    phone: "q6_phone",
-    organization: "q7_organization",
-    orgAddress: "q12_orgAddress",
-    vatOib: "q13_vatOib",
-    country: "q14_country",
-    jobTitle: "q8_jobTitle",
-    registrationType: "q15_registrationType",
+    titula: "50", // Field 50 - Titula
+    firstName: "132_first", // Field 132 - Ime i prezime (first name)
+    lastName: "132_last", // Field 132 - Ime i prezime (last name)
+    street: "113_addr_line1", // Field 113 - Adresa
+    city: "113_city", // Field 113 - Adresa (city)
+    zipCode: "113_postal", // Field 113 - Adresa (postal)
+    email: "38", // Field 38 - Email
+    areaNumber: "12_area", // Field 12 - Kontakt broj (area)
+    phoneNumber: "12_phone", // Field 12 - Kontakt broj (phone)
+    organization: "52_addr_line1", // Field 52 - Organizacija (name)
+    orgAddress: "52_city", // Field 52 - Organizacija (address)
+    vatOib: "52_postal", // Field 52 - Organizacija (VAT)
+    country: "52_country", // Field 52 - Organizacija (country)
+    regType: "133", // Field 133 - Tip Registracije (checkbox)
+    termsOfAgreement: "78", // Field 78 - Terms
   },
 };
 // =============================================================================
 
 interface FormData {
+  titula: string;
   firstName: string;
   lastName: string;
   street: string;
   city: string;
   zipCode: string;
   email: string;
-  phone: string;
+  areaNumber: string;
+  phoneNumber: string;
   organization: string;
   orgAddress: string;
   vatOib: string;
   country: string;
-  jobTitle: string;
   registrationTypes: string[];
+  termsOfAgreement: string;
 }
 
 const REGISTRATION_OPTIONS = [
   {
     id: "specijalist",
+    jotformIndex: 0, // input_133_0
+    jotformValue: "SPECIJALIST (300€)",
     label: "SPECIJALIST",
     price: 300,
     note: "PDV nije uračunat u cijenu (PDV 25%)",
   },
   {
     id: "specijalizant",
+    jotformIndex: 1, // input_133_1
+    jotformValue: "SPECIJALIZANT(200€)",
     label: "SPECIJALIZANT",
     price: 200,
     note: "PDV nije uračunat u cijenu (PDV 25%)",
   },
   {
     id: "medicinske_sestre",
+    jotformIndex: 2, // input_133_2
+    jotformValue: "MEDICINSKE SESTRE I TEHNIČARI(150€)",
     label: "MEDICINSKE SESTRE I TEHNIČARI",
     price: 150,
     note: "PDV nije uračunat u cijenu (PDV 25%)",
   },
   {
     id: "student",
+    jotformIndex: 3, // input_133_3
+    jotformValue: "STUDENT(FREE)",
     label: "STUDENT",
     price: 0,
     note: null,
   },
   {
     id: "izlagac",
+    jotformIndex: 4, // input_133_4
+    jotformValue: "IZLAGAČ(300€)",
     label: "IZLAGAČ",
     price: 300,
     note: "PDV nije uračunat u cijenu (PDV 25%)",
   },
   {
     id: "virtualna",
+    jotformIndex: 5, // input_133_5
+    jotformValue: "VIRTUALNA KOTIZACIJA(FREE)",
     label: "VIRTUALNA KOTIZACIJA",
     price: 0,
     note: null,
@@ -85,19 +101,21 @@ type FormStatus = "idle" | "submitting" | "success" | "error";
 
 const RegistracijaPage = () => {
   const [formData, setFormData] = useState<FormData>({
+    titula: "",
     firstName: "",
     lastName: "",
     street: "",
     city: "",
     zipCode: "",
     email: "",
-    phone: "",
+    areaNumber: "",
+    phoneNumber: "",
     organization: "",
     orgAddress: "",
     vatOib: "",
     country: "",
-    jobTitle: "",
     registrationTypes: [],
+    termsOfAgreement: "",
   });
 
   const [status, setStatus] = useState<FormStatus>("idle");
@@ -113,6 +131,12 @@ const RegistracijaPage = () => {
           ? [...prev.registrationTypes, value]
           : prev.registrationTypes.filter((id) => id !== value),
       }));
+    } else if (type === "checkbox" && name === "termsOfAgreement") {
+      // JotForm expects a value like "Yes" or the checkbox label when checked
+      setFormData((prev) => ({
+        ...prev,
+        termsOfAgreement: checked ? "Yes" : "",
+      }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -124,37 +148,48 @@ const RegistracijaPage = () => {
     setErrorMessage("");
 
     try {
-      // Build FormData for JotForm API
-      const jotFormData = new FormData();
-      jotFormData.append(JOTFORM_CONFIG.fields.firstName, formData.firstName);
-      jotFormData.append(JOTFORM_CONFIG.fields.lastName, formData.lastName);
-      jotFormData.append(JOTFORM_CONFIG.fields.street, formData.street);
-      jotFormData.append(JOTFORM_CONFIG.fields.city, formData.city);
-      jotFormData.append(JOTFORM_CONFIG.fields.zipCode, formData.zipCode);
-      jotFormData.append(JOTFORM_CONFIG.fields.email, formData.email);
-      jotFormData.append(JOTFORM_CONFIG.fields.phone, formData.phone);
-      jotFormData.append(
-        JOTFORM_CONFIG.fields.organization,
-        formData.organization
-      );
-      jotFormData.append(JOTFORM_CONFIG.fields.orgAddress, formData.orgAddress);
-      jotFormData.append(JOTFORM_CONFIG.fields.vatOib, formData.vatOib);
-      jotFormData.append(JOTFORM_CONFIG.fields.country, formData.country);
-      jotFormData.append(JOTFORM_CONFIG.fields.jobTitle, formData.jobTitle);
-      jotFormData.append(
-        JOTFORM_CONFIG.fields.registrationType,
-        formData.registrationTypes.join(", ")
-      );
+      // Build data object with JotForm field IDs
+      const submissionData: Record<string, string> = {
+        [JOTFORM_CONFIG.fields.titula]: formData.titula,
+        [JOTFORM_CONFIG.fields.firstName]: formData.firstName,
+        [JOTFORM_CONFIG.fields.lastName]: formData.lastName,
+        [JOTFORM_CONFIG.fields.street]: formData.street,
+        [JOTFORM_CONFIG.fields.city]: formData.city,
+        [JOTFORM_CONFIG.fields.zipCode]: formData.zipCode,
+        [JOTFORM_CONFIG.fields.email]: formData.email,
+        [JOTFORM_CONFIG.fields.areaNumber]: formData.areaNumber,
+        [JOTFORM_CONFIG.fields.phoneNumber]: formData.phoneNumber,
+        [JOTFORM_CONFIG.fields.organization]: formData.organization,
+        [JOTFORM_CONFIG.fields.orgAddress]: formData.orgAddress,
+        [JOTFORM_CONFIG.fields.vatOib]: formData.vatOib,
+        [JOTFORM_CONFIG.fields.country]: formData.country,
+        [JOTFORM_CONFIG.fields.termsOfAgreement]: formData.termsOfAgreement,
+      };
 
-      const response = await fetch(
-        `https://submit.jotform.com/submit/${JOTFORM_CONFIG.formId}/`,
-        {
-          method: "POST",
-          body: jotFormData,
+      // Add Registration Type using JotForm checkbox format
+      // Format for JotForm API: fieldId_index = checkbox value
+      formData.registrationTypes.forEach((regType) => {
+        const option = REGISTRATION_OPTIONS.find((opt) => opt.id === regType);
+        if (option) {
+          // JotForm checkbox format: 133_0 = "SPECIJALIST (300€)"
+          submissionData[
+            `${JOTFORM_CONFIG.fields.regType}_${option.jotformIndex}`
+          ] = option.jotformValue;
         }
-      );
+      });
 
-      if (response.ok) {
+      // Submit via our API route (avoids CORS issues)
+      const response = await fetch("/api/submit-registration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(submissionData),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
         setStatus("success");
         setFormData({
           firstName: "",
@@ -163,13 +198,15 @@ const RegistracijaPage = () => {
           city: "",
           zipCode: "",
           email: "",
-          phone: "",
+          areaNumber: "",
+          phoneNumber: "",
           organization: "",
           orgAddress: "",
           vatOib: "",
           country: "",
-          jobTitle: "",
+          titula: "",
           registrationTypes: [],
+          termsOfAgreement: "",
         });
       } else {
         throw new Error("Greška prilikom slanja obrasca");
@@ -187,7 +224,7 @@ const RegistracijaPage = () => {
   // Success state
   if (status === "success") {
     return (
-      <div className="min-h-screen bg-neutral-bg py-12">
+      <div className="min-h-screen bg-neutral-bg flex items-center justify-center">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
             <div className="bg-white rounded-xl shadow-card p-12">
@@ -253,16 +290,16 @@ const RegistracijaPage = () => {
               {/* Job Title */}
               <div>
                 <label
-                  htmlFor="jobTitle"
+                  htmlFor="titula"
                   className="block text-sm font-medium text-neutral-text mb-2"
                 >
                   Titula / Pozicija
                 </label>
                 <input
                   type="text"
-                  id="jobTitle"
-                  name="jobTitle"
-                  value={formData.jobTitle}
+                  id="titula"
+                  name="titula"
+                  value={formData.titula}
                   onChange={handleChange}
                   suppressHydrationWarning
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
@@ -396,25 +433,38 @@ const RegistracijaPage = () => {
                 />
               </div>
 
-              {/* Phone */}
+              {/* phoneNumber */}
               <div>
                 <label
-                  htmlFor="phone"
+                  htmlFor="phoneNumber"
                   className="block text-sm font-medium text-neutral-text mb-2"
                 >
                   Telefon <span className="text-red-500">*</span>
                 </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  suppressHydrationWarning
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
-                  placeholder="+385 91 234 5678"
-                />
+                <div className="grid grid-cols-3 gap-3">
+                  <input
+                    type="tel"
+                    id="areaNumber"
+                    name="areaNumber"
+                    value={formData.areaNumber}
+                    onChange={handleChange}
+                    required
+                    suppressHydrationWarning
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
+                    placeholder="+385"
+                  />
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    required
+                    suppressHydrationWarning
+                    className="col-span-2 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
+                    placeholder="91 234 5678"
+                  />
+                </div>
               </div>
 
               <hr className="mt-8 sm:mt-12 mb-6 sm:mb-10 text-gray-200" />
@@ -462,7 +512,7 @@ const RegistracijaPage = () => {
                   required
                   suppressHydrationWarning
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-blue focus:border-transparent transition-all outline-none"
-                  placeholder="Ulica, broj, grad, poštanski broj"
+                  placeholder="Adresa ustanove/organizacije"
                 />
               </div>
 
@@ -586,13 +636,6 @@ const RegistracijaPage = () => {
                 Nakon obrade Vaše prijave, dostavit ćemo Vam podatke o plaćanju.
               </p>
 
-              {/* Error Message */}
-              {status === "error" && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                  {errorMessage}
-                </div>
-              )}
-
               <hr className="mt-12 mb-10 text-gray-200" />
 
               {/* Terms of service Agreement */}
@@ -604,7 +647,9 @@ const RegistracijaPage = () => {
                   <div className="flex items-center gap-4">
                     <input
                       type="checkbox"
-                      name="terms-of-service-agreement"
+                      name="termsOfAgreement"
+                      id="termsOfAgreement"
+                      checked={formData.termsOfAgreement === "Yes"}
                       required
                       onChange={handleChange}
                       suppressHydrationWarning
@@ -627,6 +672,13 @@ const RegistracijaPage = () => {
                   </div>
                 </label>
               </div>
+
+              {/* Error Message */}
+              {status === "error" && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                  {errorMessage}
+                </div>
+              )}
 
               {/* Submit Button */}
               <button
