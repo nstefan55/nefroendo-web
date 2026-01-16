@@ -656,7 +656,7 @@ const RegistracijaPage = () => {
                       className="w-5 h-5 text-accent-blue border-gray-300 focus:ring-accent-blue rounded"
                     />
                     <div>
-                      <span className="font-semibold text-black sm:text-wrap md:text-nowrap">
+                      <span className="font-semibold text-black break-words">
                         Slažem se s
                         <a
                           href="/files/Opći-uvijeti-poslovanja-Certitudo.pdf"
@@ -664,7 +664,7 @@ const RegistracijaPage = () => {
                           className="ms-1"
                           rel="noopener noreferrer"
                         >
-                          Općim uvjetima poslovanja{" "}
+                          Općim uvjetima poslovanja{' '}
                           <span className="text-red-500">*</span>
                         </a>
                       </span>
